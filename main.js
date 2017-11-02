@@ -10,6 +10,7 @@ function getLocationInfo(e){
         .then(response => {
             //console.log(response.status);
             if(response.status != 200){
+                showIcon('remove')
                 document.querySelector('#output').innerHTML = `
                 <article class="message is-danger">
                     <div class="message-body">
@@ -19,6 +20,7 @@ function getLocationInfo(e){
                 `;
                 throw Error(response.statusText);
             }else {
+                showIcon('check');
                 return response.json();
             }
         })
@@ -28,6 +30,14 @@ function getLocationInfo(e){
         .catch(err => console.log(err));
 
     e.preventDefault();
+}
+
+function showIcon(icon){
+    // Clear icons
+    document.querySelector('.icon-remove').style.display = 'none';
+    document.querySelector('.icon-check').style.display = 'none';
+    // Show correct icon
+    document.querySelector(`.icon-${icon}`).style.display = 'inline-flex';
 }
 
 
